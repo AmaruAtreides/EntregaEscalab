@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: eureka-server
+      #cloud:
+      #config:
+    #uri: http://localhost:4444, http://localhost:4445
+    #profiles:
+    #active:
+    #- dev
