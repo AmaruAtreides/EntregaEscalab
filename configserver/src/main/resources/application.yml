@@ -15,12 +15,12 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/xxce10xx/cursoExpert
-          repos:
-            developper:
-              pattern:
-                - '*/dev'
-              uri: https://github.com/xxce10xx/pruebacjava
+          uri: https://github.com/AmaruAtreides/confiles
+        #  repos:
+         #   developper:
+         #     pattern:
+          #      - '*/dev'
+        #      uri: https://github.com/xxce10xx/pruebacjava
 
 #HTTP Server
 server:
