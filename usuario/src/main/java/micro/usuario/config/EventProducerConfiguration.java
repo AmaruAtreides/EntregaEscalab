@@ -1,5 +1,5 @@
 package micro.usuario.config;
-/*
+
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -7,7 +7,7 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.bardalez.compraSAGA.producer.EventSenderMessage;
+import micro.usuario.producer.EventSenderMessage;
 
 
 @Configuration
@@ -29,4 +29,4 @@ public class EventProducerConfiguration {
     public EventSenderMessage eventSenderMessage() {
     	return new EventSenderMessage();
     }
-}*/
+}

@@ -6,6 +6,7 @@ import micro.usuario.repository.UsuarioRepository;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.ParseException;
 import java.util.Optional;
 
 public class EventConsumer {
@@ -16,36 +17,24 @@ public class EventConsumer {
     @Autowired
     private EventSenderMessage eventSenderMessage;
 
-    @RabbitListener(queues="usuarioSAGA")
-    public void receive(TXCompra txCompra) {
-        Date date = new Date();
-        SimpleDateFormat dateformat = new SimpleDateFormat("dd-M-yyyy");
-        String date_guardar = dateformat.format(date);
-        try {
-            Date newDate = dateformat.parse(date_guardar);
-            Compra compraTemp = new Compra(new CompraPK(
-                    txCompra.getCodUser(),
-                    txCompra.getCodProd(),
-                    newDate),txCompra.getUnidades(),
-                    txCompra.getPrecioUnitario());
-            compraRepository.save(compraTemp);
+    @RabbitListener(queues="microusuario")
+    public void receive(Usuario usuario) {
 
-            //enviar el evento
-            txCompra.setDate(newDate);
-            eventSenderMessage.sendMessage(txCompra);
+        Usuario usuarioTemp = new Usuario(usuario.getId(), usuario.getNombre(), usuario.getDescripcion());
+        usuarioRepository.save(usuarioTemp);
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        //enviar el evento
+        eventSenderMessage.sendMessage(usuario);
+
     }
 
     @RabbitListener(queues="rollbackUsuario")
     public void receiveRollback(Usuario usuario) {
         //transaccion de compensacion
-        Optional<Usuario> usuarioTemp = usuarioRepository.findById(new Usuario(
-                txCompra.getCodUser(),
-                txCompra.getCodProd(),
-                txCompra.getDate()));
-        compraRepository.delete(compraTemp.get());
+    //    Optional<Usuario> usuarioTemp = usuarioRepository.findById(new Usuario(usuario.getId()));
+      //  usuarioRepository.delete(usuarioTemp.get());
+         usuarioRepository.delete(this.usuarioRepository.getOne(usuario.getId()));
+            
+        }
     }
-}
+

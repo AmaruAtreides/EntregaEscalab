@@ -4,14 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-public class Peticion {
+@NoArgsConstructor
+@AllArgsConstructor
+public class UsuarioPeticion {
 
     private Integer id;
     private String problema;
-    private Integer usuarioSolicitante;
-    private Integer usuarioResponsable;
+    private String nombreUsuarioSolicitante;
+    private String nombreUsuarioResponsable;
+
 
 }

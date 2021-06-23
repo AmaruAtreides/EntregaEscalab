@@ -13,9 +13,16 @@ public class EventSenderMessage {
 	private AmqpTemplate rabbitTemp;
 
 	@Autowired
+	private DirectExchange directExchange;
+
+	@Autowired
 	private TopicExchange topicExchange;
 
 	public EventSenderMessage() {}
+
+	public void sendMessage(Usuario usuario) {
+		rabbitTemp.convertAndSend(directExchange.getName(),"micro.usuario", usuario);
+	}
 
 	public void sendMessageRollback(Usuario usuario) {
 		rabbitTemp.convertAndSend(topicExchange.getName(),"rollback.usuario", usuario);

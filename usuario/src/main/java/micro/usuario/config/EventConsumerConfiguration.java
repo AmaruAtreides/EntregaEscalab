@@ -1,5 +1,5 @@
 package micro.usuario.config;
-/*
+
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
@@ -13,7 +13,7 @@ import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
 import org.springframework.messaging.handler.annotation.support.MessageHandlerMethodFactory;
 
-import com.bardalez.compraSAGA.consumer.EventConsumer;
+import micro.usuario.consumer.EventConsumer;
 
 
 @Configuration
@@ -21,32 +21,32 @@ public class EventConsumerConfiguration implements RabbitListenerConfigurer {
 
 	@Bean
 	public DirectExchange eventExchange() {
-		return new DirectExchange("exchange-saga");
+		return new DirectExchange("exchange-micro");
 	}
 
 	@Bean
 	public TopicExchange topicExchange() {
-		return new TopicExchange("exchange-saga-rollback");
+		return new TopicExchange("exchange-micro-rollback");
 	}
 
 	@Bean
 	public Queue queueRollback() {
-		return new Queue("rollbackCompra");
+		return new Queue("rollbackUsuario");
 	}
 
 	@Bean
 	public Binding bindingRollback(Queue queueRollback, TopicExchange topicExchange) {
-		return BindingBuilder.bind(queueRollback).to(topicExchange).with("rollback.compra");
+		return BindingBuilder.bind(queueRollback).to(topicExchange).with("rollback.microusuario");
 	}
 
 	@Bean
 	public Queue queue() {
-		return new Queue("compraSAGA");
+		return new Queue("microusuario");
 	}
 
 	@Bean
 	public Binding binding(Queue queue, DirectExchange eventExchange) {
-		return BindingBuilder.bind(queue).to(eventExchange).with("saga.compra");
+		return BindingBuilder.bind(queue).to(eventExchange).with("micro.usuario");
 	}
 
 	@Bean
@@ -71,4 +71,4 @@ public class EventConsumerConfiguration implements RabbitListenerConfigurer {
         return new MappingJackson2MessageConverter();
     }
 }
-*/
+

@@ -3,6 +3,7 @@ package micro.usuario.controller;
 
 import micro.usuario.model.Usuario;
 import micro.usuario.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,13 +15,12 @@ import java.util.List;
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
+    @Autowired
+    UsuarioRepository usuarioRepository;
+  //  private final UsuarioRepository usuarioRepository;
 
-
-    private final UsuarioRepository usuarioRepository;
-
-    public UsuarioController(UsuarioRepository usuarioRepository){
-        this.usuarioRepository = usuarioRepository;
-    }
+   // public UsuarioController(UsuarioRepository usuarioRepository){
+    ////  }
 
     @GetMapping
     public List<Usuario> getUsuarios(){
