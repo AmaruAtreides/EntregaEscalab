@@ -3,6 +3,7 @@ package micro.peticion.controller;
 
 import micro.peticion.model.Peticion;
 import micro.peticion.repository.PeticionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,11 +16,14 @@ import java.util.List;
 @RequestMapping("/peticiones")
 public class PeticionController {
 
-    private final PeticionRepository peticionRepository;
+  //  private final PeticionRepository peticionRepository;
 
-    public PeticionController(PeticionRepository peticionRepository){
-        this.peticionRepository = peticionRepository;
-    }
+   // public PeticionController(PeticionRepository peticionRepository){
+  //      this.peticionRepository = peticionRepository;
+  //  }
+
+    @Autowired
+    PeticionRepository peticionRepository;
 
     @GetMapping
     public List<Peticion> getPeticiones(){
@@ -30,6 +34,12 @@ public class PeticionController {
     public Peticion getPeticionId(@PathVariable Integer id) {
         return peticionRepository.findById(id).orElseThrow(RuntimeException::new);
     }
+
+  //  @GetMapping
+   // public List<Peticion> getPeticionesPorUsuario(@PathVariable Integer id){
+   //     return peticionRepository.getPeticionesPorUsuarioSolicitante(this.getPeticionId(id));
+  //  }
+
 
     @PostMapping
     public ResponseEntity createPeticion(@RequestBody Peticion peticion) throws URISyntaxException {
